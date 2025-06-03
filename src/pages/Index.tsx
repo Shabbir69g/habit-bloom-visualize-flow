@@ -1,11 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus, Flame, Target, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import HabitCard from "@/components/HabitCard";
 import AddHabitModal from "@/components/AddHabitModal";
 import StatsCard from "@/components/StatsCard";
+import { useHabits } from "@/hooks/useHabits";
 
 export interface Habit {
   id: string;
@@ -20,73 +21,13 @@ export interface Habit {
 }
 
 const Index = () => {
-  const [habits, setHabits] = useState<Habit[]>([
-    {
-      id: "1",
-      name: "Drink Water",
-      icon: "💧",
-      color: "from-blue-400 to-cyan-400",
-      streak: 0,
-      completedToday: false,
-      totalCompleted: 0,
-      createdAt: new Date(),
-      image: "/3d-rendering-young-tiger.jpg",
-    },
-    {
-      id: "2",
-      name: "Exercise",
-      icon: "💪",
-      color: "from-orange-400 to-red-400",
-      streak: 0,
-      completedToday: false,
-      totalCompleted: 0,
-      createdAt: new Date(),
-      image: "/cartoon-animated-penguin-with-headphones.jpg",
-    },
-    {
-      id: "3",
-      name: "Read Books",
-      icon: "📚",
-      color: "from-purple-400 to-pink-400",
-      streak: 0,
-      completedToday: false,
-      totalCompleted: 0,
-      createdAt: new Date(),
-    },
-  ]);
-  
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-  const toggleHabit = (id: string) => {
-    setHabits(prev => prev.map(habit => {
-      if (habit.id === id) {
-        const wasCompleted = habit.completedToday;
-        return {
-          ...habit,
-          completedToday: !wasCompleted,
-          streak: !wasCompleted ? habit.streak + 1 : Math.max(0, habit.streak - 1),
-          totalCompleted: !wasCompleted ? habit.totalCompleted + 1 : habit.totalCompleted - 1,
-        };
-      }
-      return habit;
-    }));
-  };
-
-  const addHabit = (habit: Omit<Habit, "id" | "streak" | "completedToday" | "totalCompleted" | "createdAt">) => {
-    const newHabit: Habit = {
-      ...habit,
-      id: Date.now().toString(),
-      streak: 0,
-      completedToday: false,
-      totalCompleted: 0,
-      createdAt: new Date(),
-    };
-    setHabits(prev => [...prev, newHabit]);
-  };
-
-  const completedToday = habits.filter(h => h.completedToday).length;
-  const totalStreak = habits.reduce((sum, h) => sum + h.streak, 0);
-  const bestStreak = Math.max(...habits.map(h => h.streak), 0);
+  
+  // Use our custom hook for habit management with local storage
+  const { habits, toggleHabit, addHabit, stats } = useHabits();
+  
+  // Destructure stats for easier access
+  const { completedToday, totalHabits, totalStreak, bestStreak } = stats;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
@@ -252,7 +193,7 @@ const Index = () => {
           <StatsCard
             icon={<Target className="h-5 w-5" />}
             label="Today"
-            value={`${completedToday}/${habits.length}`}
+            value={`${completedToday}/${totalHabits}`}
             gradient="from-green-400 to-emerald-400"
           />
           <StatsCard
@@ -273,7 +214,7 @@ const Index = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-800">Your Habits</h2>
-            <span className="text-sm text-gray-500">{habits.length} habits</span>
+            <span className="text-sm text-gray-500">{totalHabits} habits</span>
           </div>
           
           {habits.map((habit, index) => (
