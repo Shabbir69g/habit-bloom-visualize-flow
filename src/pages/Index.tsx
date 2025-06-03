@@ -129,7 +129,7 @@ const Index = () => {
           className="absolute bottom-40 right-2 w-14 h-14 rounded-full opacity-8 floating-1"
         />
         
-        {/* Flowers */}
+        {/* Flowers - Adding ALL available flower images */}
         <img 
           src="/photo-1465146344425-f00d5f5c8f07.jpg" 
           alt="" 
@@ -189,6 +189,33 @@ const Index = () => {
           src="/photo-1469474968028-56623f02e42e.jpg" 
           alt="" 
           className="absolute bottom-44 left-3 w-12 h-12 rounded-full opacity-10 floating-1"
+        />
+        
+        {/* Additional flower images scattered more visibly */}
+        <img 
+          src="/photo-1490750967868-88aa4486c946.jpg" 
+          alt="" 
+          className="absolute top-20 right-12 w-16 h-16 rounded-full opacity-20 floating-1"
+        />
+        <img 
+          src="/photo-1524593689594-aae2f26b75ab.jpg" 
+          alt="" 
+          className="absolute bottom-1/4 right-3 w-15 h-15 rounded-full opacity-18 floating-2"
+        />
+        <img 
+          src="/photo-1465146344425-f00d5f5c8f07.jpg" 
+          alt="" 
+          className="absolute top-1/4 left-2 w-13 h-13 rounded-full opacity-16 floating-3"
+        />
+        <img 
+          src="/photo-1441974231531-c6227db76b6e.jpg" 
+          alt="" 
+          className="absolute bottom-16 left-6 w-14 h-14 rounded-full opacity-14 floating-1"
+        />
+        <img 
+          src="/photo-1507003211169-0a1dd7228f2d.jpg" 
+          alt="" 
+          className="absolute top-36 right-5 w-12 h-12 rounded-full opacity-17 floating-2"
         />
       </div>
 
