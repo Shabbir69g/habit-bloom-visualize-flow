@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import HabitCard from "@/components/HabitCard";
 import AddHabitModal from "@/components/AddHabitModal";
+import DeleteHabitDialog from "@/components/DeleteHabitDialog";
 import StatsCard from "@/components/StatsCard";
 import { useHabits } from "@/hooks/useHabits";
 
@@ -22,12 +23,23 @@ export interface Habit {
 
 const Index = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
   
   // Use our custom hook for habit management with local storage
-  const { habits, toggleHabit, addHabit, stats } = useHabits();
+  const { habits, toggleHabit, addHabit, deleteHabit, stats } = useHabits();
   
   // Destructure stats for easier access
   const { completedToday, totalHabits, totalStreak, bestStreak } = stats;
+  
+  // Handler for opening the delete confirmation dialog
+  const handleDeleteClick = (habit: Habit) => {
+    setHabitToDelete(habit);
+  };
+  
+  // Handler for closing the delete confirmation dialog
+  const handleCloseDeleteDialog = () => {
+    setHabitToDelete(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
@@ -226,6 +238,7 @@ const Index = () => {
               <HabitCard
                 habit={habit}
                 onToggle={() => toggleHabit(habit.id)}
+                onDeleteClick={handleDeleteClick}
               />
             </div>
           ))}
@@ -255,6 +268,13 @@ const Index = () => {
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onAdd={addHabit}
+      />
+      
+      <DeleteHabitDialog
+        habit={habitToDelete}
+        isOpen={habitToDelete !== null}
+        onClose={handleCloseDeleteDialog}
+        onDelete={deleteHabit}
       />
     </div>
   );
