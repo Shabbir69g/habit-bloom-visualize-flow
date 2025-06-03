@@ -1,5 +1,5 @@
 
-import { Check, Flame, Trash2, MoreVertical } from "lucide-react";
+import { Check, Flame, Trash2, MoreVertical, Edit } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,9 +15,10 @@ interface HabitCardProps {
   habit: Habit;
   onToggle: () => void;
   onDeleteClick: (habit: Habit) => void;
+  onEditClick: (habit: Habit) => void;
 }
 
-const HabitCard = ({ habit, onToggle, onDeleteClick }: HabitCardProps) => {
+const HabitCard = ({ habit, onToggle, onDeleteClick, onEditClick }: HabitCardProps) => {
   const progressPercentage = habit.completedToday ? 100 : 0;
 
   return (
@@ -53,6 +54,13 @@ const HabitCard = ({ habit, onToggle, onDeleteClick }: HabitCardProps) => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-40 bg-white shadow-lg border-gray-200">
+                  <DropdownMenuItem 
+                    className="text-gray-700 focus:text-gray-700 focus:bg-gray-50"
+                    onClick={() => onEditClick(habit)}
+                  >
+                    <Edit className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
                   <DropdownMenuItem 
                     className="text-red-500 focus:text-red-500 focus:bg-red-50"
                     onClick={() => onDeleteClick(habit)}
