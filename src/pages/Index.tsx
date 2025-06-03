@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Plus, Flame, Target, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -89,9 +88,48 @@ const Index = () => {
   const bestStreak = Math.max(...habits.map(h => h.streak), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
+      {/* Scattered Background Images */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <img 
+          src="/3d-rendering-young-tiger.jpg" 
+          alt="" 
+          className="absolute top-10 right-4 w-16 h-16 rounded-full opacity-10 floating-1"
+        />
+        <img 
+          src="/cartoon-animated-penguin-with-headphones.jpg" 
+          alt="" 
+          className="absolute top-32 left-2 w-12 h-12 rounded-full opacity-15 floating-2"
+        />
+        <img 
+          src="/photo-1618160702438-9b02ab6515c9.jpg" 
+          alt="" 
+          className="absolute top-1/3 right-8 w-14 h-14 rounded-full opacity-8 floating-3"
+        />
+        <img 
+          src="/photo-1582562124811-c09040d0a901.jpg" 
+          alt="" 
+          className="absolute bottom-1/3 left-4 w-18 h-18 rounded-full opacity-12 floating-1"
+        />
+        <img 
+          src="/photo-1466721591366-2d5fba72006d.jpg" 
+          alt="" 
+          className="absolute bottom-20 right-6 w-16 h-16 rounded-full opacity-10 floating-2"
+        />
+        <img 
+          src="/photo-1535268647677-300dbf3d78d1.jpg" 
+          alt="" 
+          className="absolute top-1/2 left-1 w-12 h-12 rounded-full opacity-15 floating-3"
+        />
+        <img 
+          src="/photo-1485833077593-4278bba3f11f.jpg" 
+          alt="" 
+          className="absolute bottom-40 right-2 w-14 h-14 rounded-full opacity-8 floating-1"
+        />
+      </div>
+
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40 relative">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -117,7 +155,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-4 pb-6">
+      <div className="max-w-md mx-auto px-4 pb-6 relative z-10">
         {/* Stats Overview */}
         <div className="grid grid-cols-3 gap-3 mt-6 mb-6">
           <StatsCard
