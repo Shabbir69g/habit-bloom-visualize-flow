@@ -1,16 +1,24 @@
 
-import { Check, Flame } from "lucide-react";
+import { Check, Flame, Trash2, MoreVertical, Edit } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Habit } from "@/pages/Index";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HabitCardProps {
   habit: Habit;
   onToggle: () => void;
+  onDeleteClick: (habit: Habit) => void;
+  onEditClick: (habit: Habit) => void;
 }
 
-const HabitCard = ({ habit, onToggle }: HabitCardProps) => {
+const HabitCard = ({ habit, onToggle, onDeleteClick, onEditClick }: HabitCardProps) => {
   const progressPercentage = habit.completedToday ? 100 : 0;
 
   return (
@@ -35,7 +43,35 @@ const HabitCard = ({ habit, onToggle }: HabitCardProps) => {
 
           {/* Habit Info */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-gray-800 truncate">{habit.name}</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-gray-800 truncate">{habit.name}</h3>
+              
+              {/* Menu Button */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 ml-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40 bg-white shadow-lg border-gray-200">
+                  <DropdownMenuItem 
+                    className="text-gray-700 focus:text-gray-700 focus:bg-gray-50"
+                    onClick={() => onEditClick(habit)}
+                  >
+                    <Edit className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="text-red-500 focus:text-red-500 focus:bg-red-50"
+                    onClick={() => onDeleteClick(habit)}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            
             <div className="flex items-center space-x-4 mt-1">
               <div className="flex items-center space-x-1 text-sm text-gray-600">
                 <Flame className="h-4 w-4 text-orange-500" />

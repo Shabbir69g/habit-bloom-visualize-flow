@@ -107,6 +107,25 @@ export const useHabits = () => {
     setHabits(prev => [...prev, newHabit]);
   };
 
+  // Edit an existing habit
+  const editHabit = (id: string, updates: Partial<Habit>) => {
+    setHabits(prev => prev.map(habit => {
+      if (habit.id === id) {
+        return {
+          ...habit,
+          ...updates,
+          // Preserve these properties that shouldn't be editable
+          id: habit.id,
+          streak: habit.streak,
+          completedToday: habit.completedToday,
+          totalCompleted: habit.totalCompleted,
+          createdAt: habit.createdAt
+        };
+      }
+      return habit;
+    }));
+  };
+
   // Delete a habit
   const deleteHabit = (id: string) => {
     setHabits(prev => prev.filter(habit => habit.id !== id));
@@ -124,6 +143,7 @@ export const useHabits = () => {
     habits,
     toggleHabit,
     addHabit,
+    editHabit,
     deleteHabit,
     stats,
   };

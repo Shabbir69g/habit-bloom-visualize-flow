@@ -1,10 +1,11 @@
-
 import { useState } from "react";
 import { Plus, Flame, Target, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import HabitCard from "@/components/HabitCard";
 import AddHabitModal from "@/components/AddHabitModal";
+import DeleteHabitDialog from "@/components/DeleteHabitDialog";
+import EditHabitModal from "@/components/EditHabitModal";
 import StatsCard from "@/components/StatsCard";
 import { useHabits } from "@/hooks/useHabits";
 
@@ -21,13 +22,23 @@ export interface Habit {
 }
 
 const Index = () => {
+  const { habits, toggleHabit, addHabit, editHabit, deleteHabit, stats } = useHabits();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  
-  // Use our custom hook for habit management with local storage
-  const { habits, toggleHabit, addHabit, stats } = useHabits();
-  
+  const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
+  const [habitToEdit, setHabitToEdit] = useState<Habit | null>(null);
+
   // Destructure stats for easier access
   const { completedToday, totalHabits, totalStreak, bestStreak } = stats;
+
+  // Handler for opening the delete confirmation dialog
+  const handleDeleteClick = (habit: Habit) => {
+    setHabitToDelete(habit);
+  };
+
+  // Handler for closing the delete confirmation dialog
+  const handleCloseDeleteDialog = () => {
+    setHabitToDelete(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
@@ -217,18 +228,17 @@ const Index = () => {
             <span className="text-sm text-gray-500">{totalHabits} habits</span>
           </div>
           
-          {habits.map((habit, index) => (
-            <div
-              key={habit.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+            {habits.map((habit) => (
               <HabitCard
+                key={habit.id}
                 habit={habit}
                 onToggle={() => toggleHabit(habit.id)}
+                onDeleteClick={handleDeleteClick}
+                onEditClick={() => setHabitToEdit(habit)}
               />
-            </div>
-          ))}
+            ))}
+          </div>
 
           {habits.length === 0 && (
             <Card className="border-dashed border-2 border-gray-200 bg-white/50">
@@ -255,6 +265,20 @@ const Index = () => {
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onAdd={addHabit}
+      />
+      
+      <DeleteHabitDialog
+        habit={habitToDelete}
+        isOpen={habitToDelete !== null}
+        onClose={handleCloseDeleteDialog}
+        onDelete={deleteHabit}
+      />
+
+      <EditHabitModal
+        habit={habitToEdit}
+        isOpen={habitToEdit !== null}
+        onClose={() => setHabitToEdit(null)}
+        onSave={editHabit}
       />
     </div>
   );
