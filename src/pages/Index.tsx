@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Plus, Flame, Target, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -89,8 +90,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
-      {/* Scattered Background Images */}
+      {/* Scattered Background Images - Animals and Flowers */}
       <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Animals */}
         <img 
           src="/3d-rendering-young-tiger.jpg" 
           alt="" 
@@ -125,6 +127,68 @@ const Index = () => {
           src="/photo-1485833077593-4278bba3f11f.jpg" 
           alt="" 
           className="absolute bottom-40 right-2 w-14 h-14 rounded-full opacity-8 floating-1"
+        />
+        
+        {/* Flowers */}
+        <img 
+          src="/photo-1465146344425-f00d5f5c8f07.jpg" 
+          alt="" 
+          className="absolute top-16 left-8 w-12 h-12 rounded-full opacity-12 floating-2"
+        />
+        <img 
+          src="/photo-1490750967868-88aa4486c946.jpg" 
+          alt="" 
+          className="absolute top-48 right-3 w-10 h-10 rounded-full opacity-8 floating-3"
+        />
+        <img 
+          src="/photo-1524593689594-aae2f26b75ab.jpg" 
+          alt="" 
+          className="absolute top-2/3 left-6 w-14 h-14 rounded-full opacity-15 floating-1"
+        />
+        <img 
+          src="/photo-1441974231531-c6227db76b6e.jpg" 
+          alt="" 
+          className="absolute bottom-52 left-1 w-11 h-11 rounded-full opacity-10 floating-3"
+        />
+        <img 
+          src="/photo-1507003211169-0a1dd7228f2d.jpg" 
+          alt="" 
+          className="absolute top-80 right-1 w-13 h-13 rounded-full opacity-12 floating-2"
+        />
+        <img 
+          src="/photo-1416879595882-3373a0480b5b.jpg" 
+          alt="" 
+          className="absolute bottom-60 right-4 w-10 h-10 rounded-full opacity-8 floating-1"
+        />
+        <img 
+          src="/photo-1502082553048-f009c37129b9.jpg" 
+          alt="" 
+          className="absolute top-24 left-0.5 w-12 h-12 rounded-full opacity-15 floating-3"
+        />
+        <img 
+          src="/photo-1518709268805-4e9042af2176.jpg" 
+          alt="" 
+          className="absolute bottom-32 left-8 w-11 h-11 rounded-full opacity-10 floating-2"
+        />
+        <img 
+          src="/photo-1426604966848-d7adac402bff.jpg" 
+          alt="" 
+          className="absolute top-44 left-4 w-9 h-9 rounded-full opacity-12 floating-1"
+        />
+        <img 
+          src="/photo-1603001570780-e1c7c8f95e9a.jpg" 
+          alt="" 
+          className="absolute bottom-80 right-8 w-13 h-13 rounded-full opacity-8 floating-3"
+        />
+        <img 
+          src="/photo-1424847651672-bf20a4b0982b.jpg" 
+          alt="" 
+          className="absolute top-60 right-7 w-10 h-10 rounded-full opacity-15 floating-2"
+        />
+        <img 
+          src="/photo-1469474968028-56623f02e42e.jpg" 
+          alt="" 
+          className="absolute bottom-44 left-3 w-12 h-12 rounded-full opacity-10 floating-1"
         />
       </div>
 
