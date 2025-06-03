@@ -17,12 +17,20 @@ const HabitCard = ({ habit, onToggle }: HabitCardProps) => {
     <Card className="bg-white/80 backdrop-blur-sm border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <CardContent className="p-4">
         <div className="flex items-center space-x-4">
-          {/* Habit Icon */}
+          {/* Habit Icon/Image */}
           <div className={cn(
-            "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center text-xl shadow-md",
+            "w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center text-xl shadow-md overflow-hidden",
             habit.color
           )}>
-            {habit.icon}
+            {habit.image ? (
+              <img 
+                src={habit.image} 
+                alt={habit.name}
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              habit.icon
+            )}
           </div>
 
           {/* Habit Info */}

@@ -16,6 +16,7 @@ export interface Habit {
   completedToday: boolean;
   totalCompleted: number;
   createdAt: Date;
+  image?: string;
 }
 
 const Index = () => {
@@ -25,29 +26,31 @@ const Index = () => {
       name: "Drink Water",
       icon: "💧",
       color: "from-blue-400 to-cyan-400",
-      streak: 7,
-      completedToday: true,
-      totalCompleted: 15,
+      streak: 0,
+      completedToday: false,
+      totalCompleted: 0,
       createdAt: new Date(),
+      image: "/3d-rendering-young-tiger.jpg",
     },
     {
       id: "2",
       name: "Exercise",
       icon: "💪",
       color: "from-orange-400 to-red-400",
-      streak: 3,
+      streak: 0,
       completedToday: false,
-      totalCompleted: 8,
+      totalCompleted: 0,
       createdAt: new Date(),
+      image: "/cartoon-animated-penguin-with-headphones.jpg",
     },
     {
       id: "3",
       name: "Read Books",
       icon: "📚",
       color: "from-purple-400 to-pink-400",
-      streak: 12,
-      completedToday: true,
-      totalCompleted: 25,
+      streak: 0,
+      completedToday: false,
+      totalCompleted: 0,
       createdAt: new Date(),
     },
   ]);

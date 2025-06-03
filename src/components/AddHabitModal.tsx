@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 interface AddHabitModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (habit: { name: string; icon: string; color: string }) => void;
+  onAdd: (habit: { name: string; icon: string; color: string; image?: string }) => void;
 }
 
 const icons = ["💧", "💪", "📚", "🧘", "🚶", "🌱", "✍️", "🎵", "🍎", "😴", "🧹", "💰"];
@@ -25,10 +25,16 @@ const colors = [
   "from-teal-400 to-cyan-400",
 ];
 
+const animalImages = [
+  "/3d-rendering-young-tiger.jpg",
+  "/cartoon-animated-penguin-with-headphones.jpg"
+];
+
 const AddHabitModal = ({ isOpen, onClose, onAdd }: AddHabitModalProps) => {
   const [name, setName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState(icons[0]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,10 +43,12 @@ const AddHabitModal = ({ isOpen, onClose, onAdd }: AddHabitModalProps) => {
         name: name.trim(),
         icon: selectedIcon,
         color: selectedColor,
+        image: selectedImage,
       });
       setName("");
       setSelectedIcon(icons[0]);
       setSelectedColor(colors[0]);
+      setSelectedImage(undefined);
       onClose();
     }
   };
@@ -49,7 +57,7 @@ const AddHabitModal = ({ isOpen, onClose, onAdd }: AddHabitModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-sm bg-white/95 backdrop-blur-sm border-white/20 shadow-2xl animate-scale-in">
+      <Card className="w-full max-w-sm bg-white/95 backdrop-blur-sm border-white/20 shadow-2xl animate-scale-in max-h-[90vh] overflow-y-auto">
         <CardHeader className="flex flex-row items-center justify-between pb-4">
           <CardTitle className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             Add New Habit
@@ -78,6 +86,44 @@ const AddHabitModal = ({ isOpen, onClose, onAdd }: AddHabitModalProps) => {
                 className="bg-white/80 border-gray-200"
                 required
               />
+            </div>
+
+            {/* Animal Images Selection */}
+            <div className="space-y-3">
+              <Label>Choose Animal Friend (Optional)</Label>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage(undefined)}
+                  className={cn(
+                    "w-16 h-16 rounded-lg flex items-center justify-center text-2xl transition-all duration-200 border-2",
+                    selectedImage === undefined
+                      ? "bg-gradient-to-br from-purple-400 to-pink-400 text-white shadow-md scale-110 border-purple-400"
+                      : "bg-gray-100 hover:bg-gray-200 border-transparent"
+                  )}
+                >
+                  🎯
+                </button>
+                {animalImages.map((image) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => setSelectedImage(image)}
+                    className={cn(
+                      "w-16 h-16 rounded-lg overflow-hidden transition-all duration-200 border-2",
+                      selectedImage === image
+                        ? "border-purple-400 scale-110 shadow-md"
+                        : "border-transparent hover:scale-105"
+                    )}
+                  >
+                    <img 
+                      src={image} 
+                      alt="Animal friend"
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Icon Selection */}
@@ -128,10 +174,18 @@ const AddHabitModal = ({ isOpen, onClose, onAdd }: AddHabitModalProps) => {
               <Label>Preview</Label>
               <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                 <div className={cn(
-                  "w-10 h-10 rounded-full bg-gradient-to-br flex items-center justify-center text-lg shadow-sm",
+                  "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center text-lg shadow-sm overflow-hidden",
                   selectedColor
                 )}>
-                  {selectedIcon}
+                  {selectedImage ? (
+                    <img 
+                      src={selectedImage} 
+                      alt="Preview"
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    selectedIcon
+                  )}
                 </div>
                 <span className="font-medium text-gray-800">
                   {name || "Your habit name"}
